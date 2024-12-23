@@ -22,13 +22,13 @@ the [Github repo][].
 You can either clone the public repository:
 
 ``` console
-$ git clone git://github.com/sarus-tech/structured-logprobs
+$ git clone git://github.com/arena-ai/structured-logprobs
 ```
 
 Or download the [tarball][]:
 
 ``` console
-$ curl -OJL https://github.com/sarus-tech/structured-logprobs/tarball/master
+$ curl -OJL https://github.com/arena-ai/structured-logprobs/tarball/master
 ```
 
 Once you have a copy of the source, you can install it with:

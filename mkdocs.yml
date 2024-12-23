@@ -1,7 +1,7 @@
 site_name: structured-logprobs
-site_url: https://sarus-tech.github.io/structured-logprobs
-repo_url: https://github.com/sarus-tech/structured-logprobs
-repo_name: sarus-tech/structured-logprobs
+site_url: https://arena-ai.github.io/structured-logprobs
+repo_url: https://github.com/arena-ai/structured-logprobs
+repo_name: arena-ai/structured-logprobs
 #strict: true
 nav:
   - Home: index.md
@@ -63,7 +63,7 @@ extra:
       link: https://github.com/waynerv/cookiecutter-pypackage
       name: Facebook
     - icon: fontawesome/brands/github
-      link: https://github.com/sarus-tech/structured-logprobs
+      link: https://github.com/arena-ai/structured-logprobs
       name: Github
     - icon: material/email
       link: "mailto:nicolas.grislain@gmail.com"
