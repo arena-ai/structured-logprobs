@@ -2,7 +2,7 @@
 [tool.poetry]
 name = "structured-logprobs"
 version = "0.1.0"
-homepage = "https://github.com/ngrislain/structured-logprobs"
+homepage = "https://github.com/sarus-tech/structured-logprobs"
 description = "OpenAI's Structured Outputs with Logprobs."
 authors = ["Nicolas Grislain <nicolas.grislain@gmail.com>"]
 readme = "README.md"
