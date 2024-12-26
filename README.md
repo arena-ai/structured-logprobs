@@ -1,26 +1,74 @@
 # structured-logprobs
 
+[![Release](https://img.shields.io/github/v/release/sarus-tech/structured-logprobs)](https://img.shields.io/github/v/release/sarus-tech/structured-logprobs)
+[![Build status](https://img.shields.io/github/actions/workflow/status/sarus-tech/structured-logprobs/main.yml?branch=main)](https://github.com/sarus-tech/structured-logprobs/actions/workflows/main.yml?query=branch%3Amain)
+[![codecov](https://codecov.io/gh/sarus-tech/structured-logprobs/branch/main/graph/badge.svg)](https://codecov.io/gh/sarus-tech/structured-logprobs)
+[![Commit activity](https://img.shields.io/github/commit-activity/m/sarus-tech/structured-logprobs)](https://img.shields.io/github/commit-activity/m/sarus-tech/structured-logprobs)
+[![License](https://img.shields.io/github/license/sarus-tech/structured-logprobs)](https://img.shields.io/github/license/sarus-tech/structured-logprobs)
 
-[![pypi](https://img.shields.io/pypi/v/structured-logprobs.svg)](https://pypi.org/project/structured-logprobs/)
-[![python](https://img.shields.io/pypi/pyversions/structured-logprobs.svg)](https://pypi.org/project/structured-logprobs/)
-[![Build Status](https://github.com/arena-ai/structured-logprobs/actions/workflows/dev.yml/badge.svg)](https://github.com/arena-ai/structured-logprobs/actions/workflows/dev.yml)
-[![codecov](https://codecov.io/gh/arena-ai/structured-logprobs/branch/main/graphs/badge.svg)](https://codecov.io/github/arena-ai/structured-logprobs)
+Logprobs for OpenAI Structured Outputs
 
+- **Github repository**: <https://github.com/sarus-tech/structured-logprobs/>
+- **Documentation** <https://sarus-tech.github.io/structured-logprobs/>
 
+## Getting started with your project
 
-OpenAI's Structured Outputs with Logprobs
+### 1. Create a New Repository
 
+First, create a repository on GitHub with the same name as this project, and then run the following commands:
 
-* Documentation: <https://arena-ai.github.io/structured-logprobs>
-* GitHub: <https://github.com/arena-ai/structured-logprobs>
-* PyPI: <https://pypi.org/project/structured-logprobs/>
-* Free software: Apache-2.0
+```bash
+git init -b main
+git add .
+git commit -m "init commit"
+git remote add origin git@github.com:sarus-tech/structured-logprobs.git
+git push -u origin main
+```
 
+### 2. Set Up Your Development Environment
 
-## Features
+Then, install the environment and the pre-commit hooks with
 
-* TODO
+```bash
+make install
+```
 
-## Credits
+This will also generate your `uv.lock` file
 
-This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [waynerv/cookiecutter-pypackage](https://github.com/waynerv/cookiecutter-pypackage) project template.
+### 3. Run the pre-commit hooks
+
+Initially, the CI/CD pipeline might be failing due to formatting issues. To resolve those run:
+
+```bash
+uv run pre-commit run -a
+```
+
+### 4. Commit the changes
+
+Lastly, commit the changes made by the two steps above to your repository.
+
+```bash
+git add .
+git commit -m 'Fix formatting issues'
+git push origin main
+```
+
+You are now ready to start development on your project!
+The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
+
+To finalize the set-up for publishing to PyPI, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/publishing/#set-up-for-pypi).
+For activating the automatic documentation with MkDocs, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/mkdocs/#enabling-the-documentation-on-github).
+To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/codecov/).
+
+## Releasing a new version
+
+- Create an API Token on [PyPI](https://pypi.org/).
+- Add the API Token to your projects secrets with the name `PYPI_TOKEN` by visiting [this page](https://github.com/sarus-tech/structured-logprobs/settings/secrets/actions/new).
+- Create a [new release](https://github.com/sarus-tech/structured-logprobs/releases/new) on Github.
+- Create a new tag in the form `*.*.*`.
+
+For more details, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/cicd/#how-to-trigger-a-release).
+
+---
+
+Repository initiated with [fpgmaas/cookiecutter-uv](https://github.com/fpgmaas/cookiecutter-uv).

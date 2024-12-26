@@ -1,0 +1,1 @@
+::: structured_logprobs.foo
