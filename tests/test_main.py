@@ -4,7 +4,7 @@ from openai import OpenAI
 from openai.types.chat.parsed_chat_completion import ParsedChatCompletion
 from pydantic import BaseModel
 
-from structured_logprobs import add_logprobs
+from structured_logprobs.main import add_logprobs, add_logprobs_inline
 
 # Your token should be in a .env file OPENAI_API_KEY="..."
 load_dotenv()
@@ -37,10 +37,18 @@ def test_simple_parsed_completion_with_openai():
     assert event.name == "Science Fair"
 
 
-def test_simple_parsed_completion(simple_parsed_completion):
-    assert isinstance(simple_parsed_completion, ParsedChatCompletion)
+def test_add_logprobs(simple_parsed_completion, json_output):
     completion = add_logprobs(simple_parsed_completion)
-    event = completion.choices[0].message.parsed
-    print(event)
+    if isinstance(completion.value, ParsedChatCompletion):
+        event = completion.value.choices[0].message.parsed
+        assert event.name == "Science Fair"
+    assert completion.log_probs[0] == json_output
+
+
+def test_add_logprobs_inline(simple_parsed_completion, json_output_inline):
+    completion = add_logprobs_inline(simple_parsed_completion)
+    if isinstance(completion, ParsedChatCompletion):
+        event = completion.choices[0].message.parsed
+        assert event.name == "Science Fair"
     # Test if logprobs are there in the expected way (when they will be)
-    assert event.name == "Science Fair"
+    assert completion.choices[0].message.content == json_output_inline
