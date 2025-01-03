@@ -1,0 +1,21 @@
+{
+    "type": "json_schema",
+    "json_schema": {
+        "name": "event_extraction",
+        "description": "Extract details about an event, including participants, event name, and date.",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "name": { "type": "string" },
+                "date": { "type": "string" },
+                "participants": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                }
+            },
+            "required": ["name", "date", "participants"],
+            "additionalProperties": false
+        },
+        "strict": true
+    }
+}
