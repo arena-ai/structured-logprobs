@@ -1,74 +1,99 @@
 # structured-logprobs
 
-[![Release](https://img.shields.io/github/v/release/sarus-tech/structured-logprobs)](https://img.shields.io/github/v/release/sarus-tech/structured-logprobs)
-[![Build status](https://img.shields.io/github/actions/workflow/status/sarus-tech/structured-logprobs/main.yml?branch=main)](https://github.com/sarus-tech/structured-logprobs/actions/workflows/main.yml?query=branch%3Amain)
-[![codecov](https://codecov.io/gh/sarus-tech/structured-logprobs/branch/main/graph/badge.svg)](https://codecov.io/gh/sarus-tech/structured-logprobs)
-[![Commit activity](https://img.shields.io/github/commit-activity/m/sarus-tech/structured-logprobs)](https://img.shields.io/github/commit-activity/m/sarus-tech/structured-logprobs)
-[![License](https://img.shields.io/github/license/sarus-tech/structured-logprobs)](https://img.shields.io/github/license/sarus-tech/structured-logprobs)
+This Python library is designed to enhance OpenAI chat completion responses by adding detailed information about token log probabilities.
+This library works with OpenAI [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs), which is a feature that ensures the model will always generate responses that adhere to your supplied JSON Schema, so you don't need to worry about the model omitting a required key, or hallucinating an invalid enum value.
+It provides utilities to analyze and incorporate token-level log probabilities into structured outputs, helping developers understand the reliability of structured data extracted from OpenAI models.
 
-Logprobs for OpenAI Structured Outputs
+## Purpose
 
-- **Github repository**: <https://github.com/sarus-tech/structured-logprobs/>
-- **Documentation** <https://sarus-tech.github.io/structured-logprobs/>
+The primary goal of `structured-logprobs` is to provide insights into the **reliability** of extracted data. By analyzing token-level log probabilities, the library enables:
 
-## Getting started with your project
+- Understand how likely each token is based on the model's predictions.
+- Detect low-confidence areas in responses for further review.
 
-### 1. Create a New Repository
+## Prerequisites
 
-First, create a repository on GitHub with the same name as this project, and then run the following commands:
+Before using this library, one should be familiar with:
 
-```bash
-git init -b main
-git add .
-git commit -m "init commit"
-git remote add origin git@github.com:sarus-tech/structured-logprobs.git
-git push -u origin main
+- the OpenAI API and its client.
+- the concept of log probabilities, a measure of the likelihood assigned to each token by the model.
+
+## Key Features
+
+The module contains a function for mapping characters to token indices (`map_characters_to_token_indices`) and two methods for incorporating log probabilities:
+
+1. Adding log probabilities as a separate field in the response (`add_logprobs`).
+2. Embedding log probabilities inline within the message content (`add_logprobs_inline`).
+
+## Example
+
+To use this library, first create a chat completion response with the OpenAI Python SDK, then enhance the response with log probabilities.
+Here is an example of how to do that:
+
+```python
+from openai import OpenAI
+from openai.types import ResponseFormatJSONSchema
+from structured_logprobs import add_logprobs, add_logprobs_inline
+
+# Initialize the OpenAI client
+client = OpenAI(api_key="your-api-key")
+
+schema_path = "path-to-your-json-schema"
+with open(schema_path) as f:
+        schema_content = json.load(f)
+
+# Validate the schema content
+response_schema = ResponseFormatJSONSchema.model_validate(schema_content)
+
+# Create a chat completion request
+completion = client.chat.completions.create(
+    model="gpt-4o-2024-08-06",
+    messages=[
+        {
+            "role": "system",
+            "content": "I have two questions. The first question is: What is the capital of France? The second question is: Which are the two nicest colors?",
+        }
+    ],
+    logprobs=True,
+    response_format=response_schema.model_dump(by_alias=True),
+)
+
+chat_completion = add_logprobs(completion)
+chat_completion_inline = add_logprobs_inline(completion)
+print(chat_completion.log_probs[0])
+{'capital_of_France': -2.05607655e-06, 'the_two_nicest_colors': [-0.0010300694, -0.02652666281633]}
+print(chat_completion_inline.choices[0].message.content)
+{"capital_of_France": "Paris", "capital_of_France_logprob": -2.05607655e-06, "the_two_nicest_colors": ["blue", "green"]}
 ```
 
-### 2. Set Up Your Development Environment
+## Example JSON Schema
 
-Then, install the environment and the pre-commit hooks with
+The `response_format` in the request body is an object specifying the format that the model must output. Setting to { "type": "json_schema", "json_schema": {...} } ensures the model will match your supplied JSON schema.
 
-```bash
-make install
+Below is the example of the JSON file that defines the schema used for validating the responses.
+
+```python
+{
+    "type": "json_schema",
+    "json_schema": {
+        "name": "answears",
+        "description": "Response to questions in JSON format",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "capital_of_France": { "type": "string" },
+                "the_two_nicest_colors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": ["red", "blue", "green", "yellow", "purple"]
+                    }
+                }
+            },
+            "required": ["capital_of_France", "the_two_nicest_colors"],
+            "additionalProperties": false
+        },
+        "strict": true
+    }
+}
 ```
-
-This will also generate your `uv.lock` file
-
-### 3. Run the pre-commit hooks
-
-Initially, the CI/CD pipeline might be failing due to formatting issues. To resolve those run:
-
-```bash
-uv run pre-commit run -a
-```
-
-### 4. Commit the changes
-
-Lastly, commit the changes made by the two steps above to your repository.
-
-```bash
-git add .
-git commit -m 'Fix formatting issues'
-git push origin main
-```
-
-You are now ready to start development on your project!
-The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
-
-To finalize the set-up for publishing to PyPI, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/publishing/#set-up-for-pypi).
-For activating the automatic documentation with MkDocs, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/mkdocs/#enabling-the-documentation-on-github).
-To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/codecov/).
-
-## Releasing a new version
-
-- Create an API Token on [PyPI](https://pypi.org/).
-- Add the API Token to your projects secrets with the name `PYPI_TOKEN` by visiting [this page](https://github.com/sarus-tech/structured-logprobs/settings/secrets/actions/new).
-- Create a [new release](https://github.com/sarus-tech/structured-logprobs/releases/new) on Github.
-- Create a new tag in the form `*.*.*`.
-
-For more details, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/cicd/#how-to-trigger-a-release).
-
----
-
-Repository initiated with [fpgmaas/cookiecutter-uv](https://github.com/fpgmaas/cookiecutter-uv).
