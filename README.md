@@ -48,12 +48,16 @@ response_schema = ResponseFormatJSONSchema.model_validate(schema_content)
 # Create a chat completion request
 completion = client.chat.completions.create(
     model="gpt-4o-2024-08-06",
-    messages=[
-        {
-            "role": "system",
-            "content": "I have two questions. The first question is: What is the capital of France? The second question is: Which are the two nicest colors?",
-        }
-    ],
+    messages = [
+            {
+                "role": "system",
+                "content": (
+                    "I have three questions. The first question is: What is the capital of France? "
+                    "The second question is: Which are the two nicest colors? "
+                    "The third question is: Can you roll a die and tell me which number comes up?"
+                ),
+            }
+        ],
     logprobs=True,
     response_format=response_schema.model_dump(by_alias=True),
 )
@@ -61,9 +65,9 @@ completion = client.chat.completions.create(
 chat_completion = add_logprobs(completion)
 chat_completion_inline = add_logprobs_inline(completion)
 print(chat_completion.log_probs[0])
-{'capital_of_France': -2.05607655e-06, 'the_two_nicest_colors': [-0.0010300694, -0.02652666281633]}
+{'capital_of_France': -5.5122365e-07, 'the_two_nicest_colors': [-0.0033997903, -0.011364183612649998], 'die_shows': -0.48048785}
 print(chat_completion_inline.choices[0].message.content)
-{"capital_of_France": "Paris", "capital_of_France_logprob": -2.05607655e-06, "the_two_nicest_colors": ["blue", "green"]}
+{"capital_of_France": "Paris", "capital_of_France_logprob": -6.704273e-07, "the_two_nicest_colors": ["blue", "green"], "die_shows": 5.0, "die_shows_logprob": -2.3782086}
 ```
 
 ## Example JSON Schema
@@ -88,9 +92,10 @@ Below is the example of the JSON file that defines the schema used for validatin
                         "type": "string",
                         "enum": ["red", "blue", "green", "yellow", "purple"]
                     }
-                }
+                },
+                "die_shows": { "type": "number" }
             },
-            "required": ["capital_of_France", "the_two_nicest_colors"],
+            "required": ["capital_of_France", "the_two_nicest_colors", "die_shows"],
             "additionalProperties": false
         },
         "strict": true

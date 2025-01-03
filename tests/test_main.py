@@ -23,22 +23,31 @@ def test_map_characters_to_token_indices(data_token, token_indices):
 @pytest.mark.skip(reason="We do not want to automate this as no OPENAI_API_KEY is on github yet")
 def test_add_logprobs_with_openai(chat_completion):
     completion = add_logprobs(chat_completion)
-    assert list(completion.log_probs[0].keys()) == ["capital_of_France", "the_two_nicest_colors"]
+    assert list(completion.log_probs[0].keys()) == ["capital_of_France", "the_two_nicest_colors", "die_shows"]
     assert isinstance(list(completion.log_probs[0].values())[0], float)
     assert isinstance(list(completion.log_probs[0].values())[1], list)
     assert isinstance(list(completion.log_probs[0].values())[1][0], float)
+    assert isinstance(list(completion.log_probs[0].values())[2], float)
 
 
 @pytest.mark.skip(reason="We do not want to automate this as no OPENAI_API_KEY is on github yet")
 def test_add_logprobs_inline_with_openai(chat_completion):
     completion_inline = add_logprobs_inline(chat_completion)
     message_content = json.loads(completion_inline.choices[0].message.content)
-    assert list(message_content.keys()) == ["capital_of_France", "capital_of_France_logprob", "the_two_nicest_colors"]
+    assert list(message_content.keys()) == [
+        "capital_of_France",
+        "capital_of_France_logprob",
+        "the_two_nicest_colors",
+        "die_shows",
+        "die_shows_logprob",
+    ]
     assert json.loads(completion_inline.choices[0].message.content)["capital_of_France"] == "Paris"
     assert isinstance(list(message_content.values())[0], str)
     assert isinstance(list(message_content.values())[1], float)
     assert isinstance(list(message_content.values())[2], list)
     assert isinstance(list(message_content.values())[2][1], str)
+    assert isinstance(list(message_content.values())[3], float)
+    assert isinstance(list(message_content.values())[4], float)
 
 
 @pytest.mark.skip(reason="We do not want to automate this as no OPENAI_API_KEY is on github yet")

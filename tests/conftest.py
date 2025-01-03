@@ -33,7 +33,11 @@ def chat_completion(pytestconfig) -> ChatCompletion:
         messages=[
             {
                 "role": "system",
-                "content": "I have two questions. The first question is: What is the capital of France? The second question is: Which are the two nicest colors?",
+                "content": (
+                    "I have three questions. The first question is: What is the capital of France? "
+                    "The second question is: Which are the two nicest colors? "
+                    "The third question is: Can you roll a die and tell me which number comes up?"
+                ),
             }
         ],
         logprobs=True,

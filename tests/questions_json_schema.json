@@ -13,9 +13,14 @@
                         "type": "string",
                         "enum": ["red", "blue", "green", "yellow", "purple"]
                     }
-                }
+                },
+                "die_shows": { "type": "integer" }
             },
-            "required": ["capital_of_France", "the_two_nicest_colors"],
+            "required": [
+                "capital_of_France",
+                "the_two_nicest_colors",
+                "die_shows"
+            ],
             "additionalProperties": false
         },
         "strict": true
