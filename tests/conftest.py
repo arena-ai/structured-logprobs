@@ -21,7 +21,7 @@ class CalendarEvent(BaseModel):
 def chat_completion(pytestconfig) -> ChatCompletion:
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     base_path = Path(pytestconfig.rootdir)  # Base directory where pytest was run
-    schema_path = base_path / "tests" / "questions_json_schema.json"
+    schema_path = base_path / "tests" / "resources" / "questions_json_schema.json"
     with open(schema_path) as f:
         schema_content = json.load(f)
 
@@ -74,7 +74,7 @@ def parsed_chat_completion() -> ParsedChatCompletion:
 @pytest.fixture
 def simple_parsed_completion(pytestconfig) -> ParsedChatCompletion[CalendarEvent] | None:
     base_path = Path(pytestconfig.rootdir)  # Base directory where pytest was run
-    with open(base_path / "tests" / "simple_parsed_completion.json") as f:
+    with open(base_path / "tests" / "resources" / "simple_parsed_completion.json") as f:
         return ParsedChatCompletion[CalendarEvent].model_validate_json(f.read())
     return None
 

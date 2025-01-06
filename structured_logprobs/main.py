@@ -5,7 +5,7 @@ from openai.types.chat.chat_completion import ChatCompletion
 from openai.types.chat.chat_completion_token_logprob import ChatCompletionTokenLogprob
 from pydantic import BaseModel
 
-from helpers import extract_json_data, extract_json_data_inline
+from structured_logprobs.helpers import extract_json_data, extract_json_data_inline
 
 MISSING_LOGPROBS_MESSAGE = "The 'logprobs' field is missing"
 
@@ -48,16 +48,11 @@ def map_characters_to_token_indices(extracted_data_token: list[ChatCompletionTok
         [0, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4]
     """
 
-    json_output = "".join(token_data.token for token_data in extracted_data_token)
-
-    token_indices = [-1] * len(json_output)
-    current_char_pos = 0
+    token_indices = []
 
     for token_idx, token_data in enumerate(extracted_data_token):
         token_text = token_data.token
-        for _ in range(len(token_text)):
-            token_indices[current_char_pos] = token_idx
-            current_char_pos += 1
+        token_indices.extend([token_idx] * len(token_text))
 
     return token_indices
 

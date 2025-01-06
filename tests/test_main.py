@@ -54,7 +54,7 @@ def test_add_logprobs_inline_with_openai(chat_completion):
 def test_generic_completion_with_openai(pytestconfig, json_output):
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     base_path = Path(pytestconfig.rootdir)  # Base directory where pytest was run
-    schema_path = base_path / "tests" / "simple_json_schema.json"
+    schema_path = base_path / "tests" / "resources" / "simple_json_schema.json"
     with open(schema_path) as f:
         schema_content = json.load(f)
 
@@ -89,7 +89,7 @@ def test_add_logprobs_parsed_completion_with_openai(parsed_chat_completion, json
     assert type(list(completion.log_probs[0].values())[2][1]) is type(list(json_output.values())[2][1])
 
 
-# @pytest.mark.skip(reason="We do not want to automate this as no OPENAI_API_KEY is on github yet")
+@pytest.mark.skip(reason="We do not want to automate this as no OPENAI_API_KEY is on github yet")
 def test_add_logprobs_inline_parsed_completion_with_openai(parsed_chat_completion, json_output_inline):
     completion_inline = add_logprobs_inline(parsed_chat_completion)
     message_content = json.loads(completion_inline.choices[0].message.content)
