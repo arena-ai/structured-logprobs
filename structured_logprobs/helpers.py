@@ -97,9 +97,6 @@ class Extractor(Transformer_NonRecursive):
         return children[0]
 
 
-json_parser = Lark(json_grammar, parser="lalr", propagate_positions=True, maybe_placeholders=False)
-
-
 def extract_json_data(json_string: str, tokens: list[ChatCompletionTokenLogprob], token_indices: list[int]) -> PyTree:
     json_parser = Lark(json_grammar, parser="lalr", propagate_positions=True, maybe_placeholders=False)
     tree = json_parser.parse(json_string)
