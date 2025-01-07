@@ -1,9 +1,11 @@
-from typing import Any
+from typing import Any, TypeAlias
 
 from lark import Lark, Token, Transformer_NonRecursive, Tree, v_args
 from lark.tree import Meta
 from openai.types.chat.chat_completion_token_logprob import ChatCompletionTokenLogprob
 from pydantic import BaseModel
+
+PyTree: TypeAlias = Any  # a tree-like structure built out of container-like Python objects.
 
 
 class HasProb(BaseModel):
@@ -98,9 +100,7 @@ class Extractor(Transformer_NonRecursive):
 json_parser = Lark(json_grammar, parser="lalr", propagate_positions=True, maybe_placeholders=False)
 
 
-def extract_json_data(
-    json_string: str, tokens: list[ChatCompletionTokenLogprob], token_indices: list[int]
-) -> dict[str, Any]:
+def extract_json_data(json_string: str, tokens: list[ChatCompletionTokenLogprob], token_indices: list[int]) -> PyTree:
     json_parser = Lark(json_grammar, parser="lalr", propagate_positions=True, maybe_placeholders=False)
     tree = json_parser.parse(json_string)
     extractor = Extractor(tokens, token_indices)
@@ -169,7 +169,7 @@ class ExtractorInline(Transformer_NonRecursive):
 
 def extract_json_data_inline(
     json_string: str, tokens: list[ChatCompletionTokenLogprob], token_indices: list[int]
-) -> dict[str, Any]:
+) -> PyTree:
     json_parser = Lark(json_grammar, parser="lalr", propagate_positions=True, maybe_placeholders=False)
     tree = json_parser.parse(json_string)
     extractor = ExtractorInline(tokens, token_indices)
