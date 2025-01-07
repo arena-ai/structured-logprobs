@@ -1,1 +1,1 @@
-::: structured_logprobs.foo
+::: structured_logprobs
