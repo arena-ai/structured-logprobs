@@ -1,3 +1,5 @@
+![structured-logprobs](images/logo.png)
+
 # structured-logprobs
 
 This Python library is designed to enhance OpenAI chat completion responses by adding detailed information about token log probabilities.
@@ -5,6 +7,8 @@ This library works with OpenAI [Structured Outputs](https://platform.openai.com/
 It provides utilities to analyze and incorporate token-level log probabilities into structured outputs, helping developers understand the reliability of structured data extracted from OpenAI models.
 
 ## Purpose
+
+![structured-logprobs](images/pitch.png)
 
 The primary goal of `structured-logprobs` is to provide insights into the **reliability** of extracted data. By analyzing token-level log probabilities, the library enables:
 
