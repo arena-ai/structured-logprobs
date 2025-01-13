@@ -20,7 +20,7 @@ classifiers = [
 dependencies = [
     "openai~=1.58.1",
     "pydantic~=2.10.4",
-    "lark~=1.2.2"
+    "lark~=1.2.2",
 ]
 
 [project.urls]
@@ -41,6 +41,7 @@ dev = [
     "mkdocs-material>=8.5.10",
     "mkdocstrings[python]>=0.26.1",
     "python-dotenv>=1.0.1",
+    "mkdocs-jupyter>=0.25.1",
 ]
 
 [build-system]
