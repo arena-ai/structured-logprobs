@@ -21,6 +21,7 @@ dependencies = [
     "openai~=1.58.1",
     "pydantic~=2.10.4",
     "lark~=1.2.2",
+    "mkdocs-jupyter~=0.25.1",
 ]
 
 [project.urls]

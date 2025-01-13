@@ -1,9 +1,8 @@
-**structured-logprobs** is a Python library that enhances OpenAI's structured outputs by adding information about token log probabilities.
+**structured-logprobs** is an open-source Python library that enhances OpenAI's structured outputs by providing detailed information about token log probabilities.
 
 ![structured-logprobs](images/pitch.png)
 
-This library is designed to provide valuable insights into the **reliability of an LLM's structured output**.
-It works with OpenAI [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs), which is a feature that ensures the model will always generate responses that adhere to a supplied JSON Schema, eliminating concerns about missing required keys or hallucinating invalid values.
+This library is designed to offer valuable insights into the **reliability of an LLM's structured outputs**. It works with OpenAI's [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs), a feature that ensures the model consistently generates responses adhering to a supplied JSON Schema. This eliminates concerns about missing required keys or hallucinating invalid values.
 
 ## Purpose
 
