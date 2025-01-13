@@ -1,4 +1,4 @@
-![structured-logprobs](images/logo.png)
+![structured-logprobs](docs/images/logo.png)
 
 # structured-logprobs
 
@@ -8,7 +8,7 @@ It provides utilities to analyze and incorporate token-level log probabilities i
 
 ## Purpose
 
-![structured-logprobs](images/pitch.png)
+![structured-logprobs](docs/images/pitch.png)
 
 The primary goal of `structured-logprobs` is to provide insights into the **reliability** of extracted data. By analyzing token-level log probabilities, the library enables:
 
