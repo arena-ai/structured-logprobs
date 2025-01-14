@@ -10,7 +10,7 @@ It provides utilities to analyze and incorporate token-level log probabilities i
 
 ![structured-logprobs](docs/images/pitch.png)
 
-The primary goal of `structured-logprobs` is to provide insights into the **reliability** of extracted data. By analyzing token-level log probabilities, the library helps assess how likely each value generated from an LLM's structured outputs is.
+The primary goal of **structured-logprobs** is to provide insights into the reliability of extracted data. By analyzing token-level log probabilities, the library helps assess how likely each value generated from an LLM's structured outputs is.
 
 ## Key Features
 
