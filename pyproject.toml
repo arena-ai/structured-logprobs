@@ -1,6 +1,6 @@
 [project]
 name = "structured-logprobs"
-version = "0.1.0"
+version = "0.1.1"
 description = "Logprobs for OpenAI Structured Outputs"
 authors = [{ name = "Sarus Technologies", email = "nicolas.grislain@gmail.com" }]
 readme = "README.md"
@@ -24,9 +24,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://sarus-tech.github.io/structured-logprobs/"
-Repository = "https://github.com/sarus-tech/structured-logprobs"
-Documentation = "https://sarus-tech.github.io/structured-logprobs/"
+Homepage = "https://arena-ai.github.io/structured-logprobs/"
+Repository = "https://github.com/arena-ai/structured-logprobs"
+Documentation = "https://arena-ai.github.io/structured-logprobs/"
 
 [dependency-groups]
 dev = [

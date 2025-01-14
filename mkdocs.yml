@@ -1,11 +1,11 @@
 site_name: structured-logprobs
-repo_url: https://github.com/sarus-tech/structured-logprobs
-site_url: https://sarus-tech.github.io/structured-logprobs
+repo_url: https://github.com/arena-ai/structured-logprobs
+site_url: https://arena-ai.github.io/structured-logprobs
 site_description: Logprobs for OpenAI Structured Outputs
 site_author: Sarus Technologies
 edit_uri: edit/main/docs/
-repo_name: sarus-tech/structured-logprobs
-copyright: Maintained by <a href="https://sarus-tech.com">sarus-tech</a>.
+repo_name: arena-ai/structured-logprobs
+copyright: Maintained by <a href="https://arena-ai.com">arena-ai</a>.
 
 nav:
   - Home: index.md
@@ -43,12 +43,22 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/sarus-tech/structured-logprobs
+      link: https://github.com/arena-ai/structured-logprobs
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/structured-logprobs
+
+extra_css:
+  - stylesheets/extra.css
 
 markdown_extensions:
   - toc:
       permalink: true
   - pymdownx.arithmatex:
       generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences

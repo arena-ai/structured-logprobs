@@ -21,7 +21,7 @@ completion = client.chat.completions.create(
         {
             "role": "system",
             "content": (
-                "Please output JSON-formatted metadata about the 'structured-logprobs' library."
+                "Please output metadata about 'structured-logprobs'"
             ),
         }
     ],
@@ -44,7 +44,7 @@ chat_completion = add_logprobs(completion)
 print(chat_completion)
 ```
 
-For more details, visit [Getting Started](https://github.com/arena-ai/structured-logprobs/blob/4-finalize-the-packaging/docs/notebooks/notebook.ipynb).
+For more details, visit [Getting Started](notebooks/notebook.ipynb).
 
 ## Key Features
 
