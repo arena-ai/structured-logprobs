@@ -68,6 +68,9 @@ testpaths = ["tests"]
 target-version = "py39"
 line-length = 120
 fix = true
+exclude = [
+    "*.ipynb",
+]
 
 [tool.ruff.lint]
 select = [
@@ -118,9 +121,6 @@ ignore = [
 
 [tool.ruff.format]
 preview = true
-exclude = [
-    "*.ipynb",
-]
 
 [tool.coverage.report]
 skip_empty = true
