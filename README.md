@@ -1,4 +1,4 @@
-![structured-logprobs](images/logo.png)
+![structured-logprobs](docs/images/logo.png)
 
 # structured-logprobs
 
@@ -6,21 +6,11 @@ This Python library is designed to enhance OpenAI chat completion responses by a
 This library works with OpenAI [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs), which is a feature that ensures the model will always generate responses that adhere to your supplied JSON Schema, so you don't need to worry about the model omitting a required key, or hallucinating an invalid enum value.
 It provides utilities to analyze and incorporate token-level log probabilities into structured outputs, helping developers understand the reliability of structured data extracted from OpenAI models.
 
-## Purpose
+## Objective
 
-![structured-logprobs](images/pitch.png)
+![structured-logprobs](docs/images/pitch.png)
 
-The primary goal of `structured-logprobs` is to provide insights into the **reliability** of extracted data. By analyzing token-level log probabilities, the library enables:
-
-- Understand how likely each token is based on the model's predictions.
-- Detect low-confidence areas in responses for further review.
-
-## Prerequisites
-
-Before using this library, one should be familiar with:
-
-- the OpenAI API and its client.
-- the concept of log probabilities, a measure of the likelihood assigned to each token by the model.
+The primary goal of `structured-logprobs` is to provide insights into the **reliability** of extracted data. By analyzing token-level log probabilities, the library helps assess how likely each value generated from an LLM's structured outputs is.
 
 ## Key Features
 
@@ -76,7 +66,7 @@ print(chat_completion_inline.choices[0].message.content)
 
 ## Example JSON Schema
 
-The `response_format` in the request body is an object specifying the format that the model must output. Setting to { "type": "json_schema", "json_schema": {...} } ensures the model will match your supplied JSON schema.
+The `response_format` in the request body is an object specifying the format that the model must output. Setting to { "type": "json_schema", "json_schema": {...} } ensures the model will match your supplied [JSON schema](https://json-schema.org/overview/what-is-jsonschema).
 
 Below is the example of the JSON file that defines the schema used for validating the responses.
 

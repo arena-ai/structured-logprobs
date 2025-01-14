@@ -9,13 +9,15 @@ copyright: Maintained by <a href="https://sarus-tech.com">sarus-tech</a>.
 
 nav:
   - Home: index.md
-  - Modules: modules.md
+  - Getting started: notebooks/notebook.ipynb
 plugins:
   - search
   - mkdocstrings:
       handlers:
         python:
           paths: [structured_logprobs]
+  - mkdocs-jupyter
+
 theme:
   name: material
   feature:
@@ -23,14 +25,14 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: white
+      primary: "073763"
       accent: deep orange
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: black
+      primary: "073763"
       accent: deep orange
       toggle:
         icon: material/brightness-4
