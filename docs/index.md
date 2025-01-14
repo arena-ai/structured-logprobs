@@ -4,19 +4,47 @@
 
 This library is designed to offer valuable insights into the **reliability of an LLM's structured outputs**. It works with OpenAI's [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs), a feature that ensures the model consistently generates responses adhering to a supplied JSON Schema. This eliminates concerns about missing required keys or hallucinating invalid values.
 
-## Purpose
+## Installation
 
-By analyzing token-level log probabilities, the library enables:
+Simply install with `pip install structured-logprobs`
 
-- Understand how likely each token is based on the model's predictions.
-- Detect low-confidence areas in responses for further review.
+Then use it this way:
 
-## Prerequisites
+```python
+from openai import OpenAI
+from structured_logprobs.main import add_logprobs
 
-Before using this library, one should be familiar with:
+client = OpenAI()
+completion = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {
+            "role": "system",
+            "content": (
+                "Please output JSON-formatted metadata about the 'structured-logprobs' library."
+            ),
+        }
+    ],
+    logprobs=True,
+    response_format={
+        "type": "json_schema",
+        "json_schema": {
+            "name": "answear",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "version": {"type": "string"},
+                },
+            },
+        },
+    },
+)
+chat_completion = add_logprobs(completion)
+print(chat_completion)
+```
 
-- the OpenAI API and its client.
-- the concept of log probabilities, a measure of the likelihood assigned to each token by the model.
+For more details, visit [Getting Started](https://github.com/arena-ai/structured-logprobs/blob/4-finalize-the-packaging/docs/notebooks/notebook.ipynb).
 
 ## Key Features
 
