@@ -130,4 +130,4 @@ branch = true
 source = ["structured_logprobs"]
 
 [tool.deptry]
-exclude = ["*.ipynb"]
+ignore_notebooks = true
