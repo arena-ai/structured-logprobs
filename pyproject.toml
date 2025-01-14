@@ -1,6 +1,6 @@
 [project]
 name = "structured-logprobs"
-version = "0.1.3"
+version = "0.1.4"
 description = "Logprobs for OpenAI Structured Outputs"
 authors = [{ name = "Sarus Technologies", email = "nicolas.grislain@gmail.com" }]
 readme = "README.md"
