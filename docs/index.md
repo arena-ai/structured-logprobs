@@ -1,6 +1,6 @@
 ![structured-logprobs](https://github.com/arena-ai/structured-logprobs/blob/main/docs/images/logo.png?raw=true)
 
-**structured-logprobs** is an open-source Python library that enhances OpenAI's structured outputs by providing detailed information about token log probabilities.
+**structured-logprobs** is an open-source Python library that enhances [OpenAI's structured outputs](https://platform.openai.com/docs/guides/structured-outputs) by providing detailed information about token log probabilities.
 
 ![structured-logprobs](images/pitch.png)
 
