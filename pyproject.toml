@@ -42,7 +42,6 @@ dev = [
     "mkdocstrings[python]>=0.26.1",
     "python-dotenv>=1.0.1",
     "mkdocs-jupyter>=0.25.1",
-    "rich>=13.9.4",
 ]
 
 [build-system]
@@ -119,6 +118,9 @@ ignore = [
 
 [tool.ruff.format]
 preview = true
+exclude = [
+    "*.ipynb",
+]
 
 [tool.coverage.report]
 skip_empty = true
