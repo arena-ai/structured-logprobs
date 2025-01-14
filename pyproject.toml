@@ -128,3 +128,6 @@ skip_empty = true
 [tool.coverage.run]
 branch = true
 source = ["structured_logprobs"]
+
+[tool.deptry]
+exclude = ["*.ipynb"]
