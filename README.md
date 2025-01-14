@@ -1,3 +1,7 @@
+![GitHub Tag](https://img.shields.io/github/v/tag/arena-ai/structured-logprobs)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/structured-logprobs)
+[![Main Workflow](https://github.com/arena-ai/structured-logprobs/actions/workflows/main.yml/badge.svg)](https://github.com/arena-ai/structured-logprobs/actions/workflows/main.yml)
+[![Release Workflow](https://github.com/arena-ai/structured-logprobs/actions/workflows/on-release-main.yml/badge.svg)](https://github.com/arena-ai/structured-logprobs/actions/workflows/on-release-main.yml)
 ![structured-logprobs](docs/images/logo.png)
 
 # structured-logprobs
