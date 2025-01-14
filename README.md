@@ -2,7 +2,7 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/structured-logprobs)
 [![Main Workflow](https://github.com/arena-ai/structured-logprobs/actions/workflows/main.yml/badge.svg)](https://github.com/arena-ai/structured-logprobs/actions/workflows/main.yml)
 [![Release Workflow](https://github.com/arena-ai/structured-logprobs/actions/workflows/on-release-main.yml/badge.svg)](https://github.com/arena-ai/structured-logprobs/actions/workflows/on-release-main.yml)
-![structured-logprobs](docs/images/logo.png)
+![structured-logprobs](https://github.com/arena-ai/structured-logprobs/blob/main/docs/images/logo.png?raw=true)
 
 # structured-logprobs
 
@@ -12,7 +12,7 @@ It provides utilities to analyze and incorporate token-level log probabilities i
 
 ## Objective
 
-![structured-logprobs](docs/images/pitch.png)
+![structured-logprobs](https://github.com/arena-ai/structured-logprobs/blob/main/docs/images/pitch.png?raw=true)
 
 The primary goal of **structured-logprobs** is to provide insights into the reliability of extracted data. By analyzing token-level log probabilities, the library helps assess how likely each value generated from an LLM's structured outputs is.
 

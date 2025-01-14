@@ -1,10 +1,12 @@
+![structured-logprobs](https://github.com/arena-ai/structured-logprobs/blob/main/docs/images/logo.png?raw=true)
+
 **structured-logprobs** is an open-source Python library that enhances OpenAI's structured outputs by providing detailed information about token log probabilities.
 
 ![structured-logprobs](images/pitch.png)
 
 This library is designed to offer valuable insights into the **reliability of an LLM's structured outputs**. It works with OpenAI's [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs), a feature that ensures the model consistently generates responses adhering to a supplied JSON Schema. This eliminates concerns about missing required keys or hallucinating invalid values.
 
-## Installation
+# Installation
 
 Simply install with `pip install structured-logprobs`
 
@@ -46,7 +48,7 @@ print(chat_completion)
 
 For more details, visit [Getting Started](notebooks/notebook.ipynb).
 
-## Key Features
+# Key Features
 
 The module contains a function for mapping characters to token indices (`map_characters_to_token_indices`) and two methods for incorporating log probabilities:
 
