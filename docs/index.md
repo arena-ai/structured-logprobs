@@ -31,7 +31,7 @@ completion = client.chat.completions.create(
     response_format={
         "type": "json_schema",
         "json_schema": {
-            "name": "answear",
+            "name": "answer",
             "schema": {
                 "type": "object",
                 "properties": {
