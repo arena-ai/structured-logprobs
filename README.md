@@ -2,9 +2,8 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/structured-logprobs)
 [![Main Workflow](https://github.com/arena-ai/structured-logprobs/actions/workflows/main.yml/badge.svg)](https://github.com/arena-ai/structured-logprobs/actions/workflows/main.yml)
 [![Release Workflow](https://github.com/arena-ai/structured-logprobs/actions/workflows/on-release-main.yml/badge.svg)](https://github.com/arena-ai/structured-logprobs/actions/workflows/on-release-main.yml)
-![structured-logprobs](https://github.com/arena-ai/structured-logprobs/blob/main/docs/images/logo.png?raw=true)
 
-# structured-logprobs
+![structured-logprobs](https://github.com/arena-ai/structured-logprobs/blob/main/docs/images/logo.png?raw=true)
 
 This Python library is designed to enhance OpenAI chat completion responses by adding detailed information about token log probabilities.
 This library works with OpenAI [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs), which is a feature that ensures the model will always generate responses that adhere to your supplied JSON Schema, so you don't need to worry about the model omitting a required key, or hallucinating an invalid enum value.
