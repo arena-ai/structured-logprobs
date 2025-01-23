@@ -5,7 +5,7 @@ site_description: Logprobs for OpenAI Structured Outputs
 site_author: Sarus Technologies
 edit_uri: edit/main/docs/
 repo_name: arena-ai/structured-logprobs
-copyright: Maintained by <a href="https://arena-ai.com">arena-ai</a>.
+copyright: Maintained by <a href="https://github.com/arena-ai">arena-ai</a>.
 
 nav:
   - Home: index.md
