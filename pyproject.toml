@@ -18,7 +18,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "openai~=1.58.1",
+    "openai",
     "pydantic~=2.10.4",
     "lark~=1.2.2",
 ]
