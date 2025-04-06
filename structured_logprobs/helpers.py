@@ -23,9 +23,9 @@ json_grammar = r"""
           | array
           | string
           | SIGNED_NUMBER -> number    #'-> number' specifies an alias for the rule
-          | "true"
-          | "false"
-          | "null"
+          | "true" -> true
+          | "false" -> false
+          | "null" -> null
 
     array  : "[" [value ("," value)*] "]"
     object : "{" [pair ("," pair)*] "}"
@@ -71,8 +71,9 @@ class Extractor(Transformer_NonRecursive):
         logprob_sum = self._compute_logprob_sum(meta.start_pos, meta.end_pos)
         return logprob_sum
 
-    def null(self, meta: Meta, children: list[Token]) -> None:
-        return None
+    def null(self, meta: Meta, children: list[Token]) -> float:
+        logprob_sum = self._compute_logprob_sum(meta.start_pos, meta.end_pos)
+        return logprob_sum
 
     def array(self, meta: Meta, children: list[Any]) -> list[float]:
         return children
