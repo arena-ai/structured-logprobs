@@ -23,10 +23,13 @@ json_grammar = r"""
           | array
           | string
           | SIGNED_NUMBER -> number    #'-> number' specifies an alias for the rule
-          | "true" -> true
-          | "false" -> false
-          | "null" -> null
+          | true
+          | false
+          | null
 
+    true: "true"
+    false: "false"
+    null: "null"
     array  : "[" [value ("," value)*] "]"
     object : "{" [pair ("," pair)*] "}"
     pair   : key ":" value
