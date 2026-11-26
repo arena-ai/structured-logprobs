@@ -1,3 +1,4 @@
+import json
 from typing import Any, TypeAlias
 
 from lark import Lark, Token, Transformer_NonRecursive, Tree, v_args
@@ -95,7 +96,8 @@ class Extractor(Transformer_NonRecursive):
         return key, value
 
     def key(self, meta: Meta, children: list[Token]) -> str:
-        return children[0][1:-1]
+        key: str = json.loads(children[0])  # decode JSON escapes, e.g. \" and \n
+        return key
 
     def start(self, meta: Meta, children: list[dict[str, Any]]) -> dict[str, Any]:
         return children[0]
@@ -128,7 +130,7 @@ class ExtractorInline(Transformer_NonRecursive):
 
     def string(self, meta: Meta, children: list[Token]) -> HasProb:
         logprob_sum = self._compute_logprob_sum(meta.start_pos, meta.end_pos)
-        return HasProb(value=children[0][1:-1], start=meta.start_pos, end=meta.end_pos, logprob=logprob_sum)
+        return HasProb(value=json.loads(children[0]), start=meta.start_pos, end=meta.end_pos, logprob=logprob_sum)
 
     def true(self, meta: Meta, children: list[Token]) -> HasProb:
         logprob_sum = self._compute_logprob_sum(meta.start_pos, meta.end_pos)
@@ -162,7 +164,8 @@ class ExtractorInline(Transformer_NonRecursive):
         return key, value
 
     def key(self, meta: Meta, children: list[Token]) -> str:
-        return children[0][1:-1]
+        key: str = json.loads(children[0])  # decode JSON escapes, e.g. \" and \n
+        return key
 
     def start(self, meta: Meta, children: list[dict[str, Any]]) -> dict[str, Any]:
         return children[0]

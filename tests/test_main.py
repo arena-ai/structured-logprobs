@@ -6,6 +6,7 @@ import pytest
 from dotenv import load_dotenv
 from openai import OpenAI
 from openai.types import ResponseFormatJSONSchema
+from openai.types.chat.chat_completion import ChatCompletion
 from openai.types.chat.parsed_chat_completion import ParsedChatCompletion
 
 from structured_logprobs.main import add_logprobs, add_logprobs_inline, map_characters_to_token_indices
@@ -115,3 +116,33 @@ def test_add_logprobs_inline(simple_parsed_completion, json_output_inline):
         event = completion.choices[0].message.parsed
         assert event.name == "Science Fair"
     assert completion.choices[0].message.content == json_output_inline
+
+
+def _completion_one_token_per_char(content: str) -> ChatCompletion:
+    tokens = [{"token": ch, "logprob": -0.1, "bytes": list(ch.encode()), "top_logprobs": []} for ch in content]
+    return ChatCompletion.model_validate({
+        "id": "chatcmpl-test",
+        "object": "chat.completion",
+        "created": 0,
+        "model": "gpt-4o-2024-08-06",
+        "choices": [
+            {
+                "index": 0,
+                "finish_reason": "stop",
+                "message": {"role": "assistant", "content": content},
+                "logprobs": {"content": tokens},
+            }
+        ],
+    })
+
+
+def test_escaped_strings_are_decoded():
+    original = {"quote": 'He said "hi"', "lines": "a\nb", 'key "x"': "\\", "unicode": "é"}
+    content = json.dumps(original)
+
+    completion = add_logprobs(_completion_one_token_per_char(content))
+    assert list(completion.log_probs[0].keys()) == list(original.keys())
+
+    completion_inline = add_logprobs_inline(_completion_one_token_per_char(content))
+    message_content = json.loads(completion_inline.choices[0].message.content)
+    assert {key: message_content[key] for key in original} == original
