@@ -51,8 +51,15 @@ def map_characters_to_token_indices(extracted_data_token: list[ChatCompletionTok
     token_indices = []
 
     for token_idx, token_data in enumerate(extracted_data_token):
-        token_text = token_data.token
-        token_indices.extend([token_idx] * len(token_text))
+        # A token can hold only part of a multi-byte character (e.g. an emoji split over
+        # several tokens), and then its `token` text is not the character itself. Count
+        # characters from the UTF-8 `bytes` instead: each character is attributed to the
+        # token holding its first byte, i.e. every byte that is not a continuation byte.
+        token_bytes = getattr(token_data, "bytes", None)
+        if not token_bytes:
+            token_bytes = token_data.token.encode("utf-8")
+        n_chars = sum(1 for byte in token_bytes if byte & 0xC0 != 0x80)
+        token_indices.extend([token_idx] * n_chars)
 
     return token_indices
 

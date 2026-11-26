@@ -6,6 +6,7 @@ import pytest
 from dotenv import load_dotenv
 from openai import OpenAI
 from openai.types import ResponseFormatJSONSchema
+from openai.types.chat.chat_completion import ChatCompletion
 from openai.types.chat.parsed_chat_completion import ParsedChatCompletion
 
 from structured_logprobs.main import add_logprobs, add_logprobs_inline, map_characters_to_token_indices
@@ -115,3 +116,35 @@ def test_add_logprobs_inline(simple_parsed_completion, json_output_inline):
         event = completion.choices[0].message.parsed
         assert event.name == "Science Fair"
     assert completion.choices[0].message.content == json_output_inline
+
+
+def test_add_logprobs_with_multibyte_character_split_across_tokens():
+    # GPT-4o's tokenizer (o200k_base) splits the 4-byte emoji over three tokens. Their
+    # `token` text cannot be the emoji itself, so the character count must come from `bytes`.
+    content = '{"emoji":"🦒","name":"Bob"}'
+    token_bytes = [b'{"', b"emoji", b'":"', b"\xf0\x9f", b"\xa6", b"\x92", b'","', b"name", b'":"', b"Bob", b'"}']
+    tokens = []
+    for idx, raw in enumerate(token_bytes):
+        try:
+            text = raw.decode()
+        except UnicodeDecodeError:
+            text = "bytes:" + "".join(f"\\x{byte:02x}" for byte in raw)
+        tokens.append({"token": text, "logprob": -(idx + 1), "bytes": list(raw), "top_logprobs": []})
+    completion = ChatCompletion.model_validate({
+        "id": "chatcmpl-test",
+        "object": "chat.completion",
+        "created": 0,
+        "model": "gpt-4o-2024-08-06",
+        "choices": [
+            {
+                "index": 0,
+                "finish_reason": "stop",
+                "message": {"role": "assistant", "content": content},
+                "logprobs": {"content": tokens},
+            }
+        ],
+    })
+
+    assert len(map_characters_to_token_indices(completion.choices[0].logprobs.content)) == len(content)
+    # emoji: tokens 2-5 ('":"' and the three byte tokens); name: tokens 8-9 ('":"' and 'Bob')
+    assert add_logprobs(completion).log_probs[0] == {"emoji": -(3 + 4 + 5 + 6), "name": -(9 + 10)}
