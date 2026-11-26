@@ -115,3 +115,11 @@ def test_add_logprobs_inline(simple_parsed_completion, json_output_inline):
         event = completion.choices[0].message.parsed
         assert event.name == "Science Fair"
     assert completion.choices[0].message.content == json_output_inline
+
+
+def test_readme_imports():
+    from structured_logprobs import add_logprobs as package_add_logprobs
+    from structured_logprobs import add_logprobs_inline as package_add_logprobs_inline
+
+    assert package_add_logprobs is add_logprobs
+    assert package_add_logprobs_inline is add_logprobs_inline

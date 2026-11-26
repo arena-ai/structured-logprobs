@@ -28,6 +28,8 @@ To use this library, first create a chat completion response with the OpenAI Pyt
 Here is an example of how to do that:
 
 ```python
+import json
+
 from openai import OpenAI
 from openai.types import ResponseFormatJSONSchema
 from structured_logprobs import add_logprobs, add_logprobs_inline
